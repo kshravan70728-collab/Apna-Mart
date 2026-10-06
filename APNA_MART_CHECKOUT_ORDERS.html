@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APNA MART — Smart Shopping</title>
+<style>
+:root{--navy:#062a52;--orange:#ff7a00;--bg:#f5f7fb;--text:#172033;--muted:#697386;--green:#159447}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+button,input{font:inherit}.top{background:var(--navy);color:#fff;padding:12px 5%;display:flex;align-items:center;gap:22px;position:sticky;top:0;z-index:20}.logo{font-weight:900;font-size:25px;white-space:nowrap}.logo span{color:var(--orange)}.tag{font-size:12px;color:#dce8f5}.search{flex:1;display:flex;background:#fff;border-radius:9px;overflow:hidden}.search input{width:100%;border:0;padding:12px;outline:0}.search button{border:0;background:var(--orange);color:#fff;padding:0 18px;cursor:pointer}.cartBtn{border:0;background:transparent;color:#fff;cursor:pointer;font-weight:700}.address{background:#fff;padding:10px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e6e9ef}.address small{color:var(--muted)}.address button{border:1px solid var(--orange);color:var(--orange);background:#fff;border-radius:7px;padding:7px 12px}.cats{background:#fff;padding:12px 5%;display:flex;gap:9px;overflow:auto}.cat{border:1px solid #e2e6ed;background:#fff;border-radius:20px;padding:9px 14px;white-space:nowrap;cursor:pointer}.cat.active,.cat:hover{background:var(--navy);color:#fff}.hero{margin:18px 5%;padding:28px;border-radius:18px;background:linear-gradient(110deg,#062a52,#0d5ca8);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px}.hero h1{font-size:34px;margin:0 0 8px}.hero p{margin:0 0 18px;color:#dce8f5}.hero button{background:var(--orange);color:#fff;border:0;border-radius:8px;padding:12px 20px;font-weight:700;cursor:pointer}.heroBadge{font-size:64px;font-weight:900;color:#ffb15c}.wrap{padding:0 5% 35px}.heading{display:flex;justify-content:space-between;align-items:center;margin:22px 0 14px}.heading h2{margin:0}.count{color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}.card{background:#fff;border:1px solid #e5e8ee;border-radius:12px;overflow:hidden;position:relative;transition:.15s}.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px #14213d14}.pic{height:190px;background:#eef2f7;position:relative}.pic img{width:100%;height:100%;object-fit:cover}.badge{position:absolute;top:9px;left:9px;background:var(--green);color:#fff;padding:5px 7px;border-radius:5px;font-size:11px;font-weight:700}.info{padding:12px}.catname{font-size:11px;color:#55708d;font-weight:700;text-transform:uppercase}.name{font-weight:700;line-height:1.3;margin:5px 0 8px;min-height:37px}.price{font-size:19px;font-weight:900}.old{text-decoration:line-through;color:#8992a2;font-size:12px;margin-left:5px}.rating{color:#d68a00;font-size:12px;margin:6px 0}.add{width:100%;border:0;background:var(--navy);color:#fff;border-radius:7px;padding:10px;cursor:pointer;font-weight:700}.add:hover{background:var(--orange)}footer{background:var(--navy);color:#fff;padding:25px 5%;margin-top:20px;display:flex;justify-content:space-between}.drawer{position:fixed;right:-420px;top:0;width:min(390px,92vw);height:100vh;background:#fff;z-index:50;box-shadow:-10px 0 35px #0002;transition:.25s;padding:20px;overflow:auto}.drawer.open{right:0}.drawerHead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#eee;border-radius:50%;width:34px;height:34px}.item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid #eee}.item img{width:60px;height:60px;object-fit:cover;border-radius:8px}.qty button{border:1px solid #ddd;background:#fff;padding:3px 9px}.total{font-size:20px;font-weight:900;margin:18px 0}.checkout{width:100%;border:0;background:var(--orange);color:#fff;padding:13px;border-radius:8px;font-weight:800}.empty{color:var(--muted);padding:40px 0;text-align:center}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:800px){.top{flex-wrap:wrap;padding:10px 4%}.logo{font-size:22px}.tag{display:none}.search{order:3;flex-basis:100%}.hero{margin:12px 4%;padding:22px}.hero h1{font-size:27px}.heroBadge{font-size:40px}.wrap{padding:0 4% 25px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.pic{height:170px}.address,.cats{padding-left:4%;padding-right:4%}footer{padding:20px 4%;font-size:12px}}
+
+/* APNA MART Premium UI */
+.logoMark{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#ff7a00,#ffb347);box-shadow:0 5px 16px #ff7a0040;margin-right:7px;vertical-align:middle;font-size:20px}
+.logoText{vertical-align:middle;letter-spacing:-.5px}
+.topActions{display:flex;align-items:center;gap:8px}
+.iconBtn{border:0;background:rgba(255,255,255,.1);color:#fff;width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:19px;position:relative}
+.iconBtn:hover{background:var(--orange)}
+.notifDot{position:absolute;right:7px;top:6px;width:7px;height:7px;background:#ff3b30;border-radius:50%;border:2px solid var(--navy)}
+.moreMenu{position:fixed;right:4%;top:68px;width:245px;background:#fff;border:1px solid #e8ebf0;border-radius:14px;box-shadow:0 15px 45px #10213b25;padding:8px;z-index:80;display:none}
+.moreMenu.open{display:block}
+.moreMenu button{width:100%;border:0;background:#fff;text-align:left;padding:12px 13px;border-radius:9px;cursor:pointer;font-weight:700;color:var(--text)}
+.moreMenu button:hover{background:#f3f6fa}
+.modalBack{position:fixed;inset:0;background:#061a2d88;display:none;align-items:center;justify-content:center;padding:18px;z-index:100}
+.modalBack.open{display:flex}
+.modal{width:min(560px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 20px 70px #0004;padding:22px}
+.modalHead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.modalHead h2{margin:0}
+.closeX{border:0;background:#eef2f7;border-radius:50%;width:36px;height:36px;font-size:22px;cursor:pointer}
+.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.formGrid label{font-size:12px;font-weight:700;color:#526176}
+.formGrid input,.formGrid textarea{width:100%;margin-top:5px;border:1px solid #dfe4ec;border-radius:9px;padding:11px;outline:none}
+.formGrid textarea{min-height:80px;resize:vertical}
+.full{grid-column:1/-1}
+.primaryBtn{border:0;background:var(--orange);color:#fff;border-radius:9px;padding:12px 16px;font-weight:800;cursor:pointer}
+.secondaryBtn{border:1px solid #dfe4ec;background:#fff;color:var(--text);border-radius:9px;padding:11px 14px;font-weight:700;cursor:pointer}
+.locationBox{background:#f5f8fc;border:1px solid #e5eaf1;border-radius:12px;padding:12px;margin-bottom:14px}
+.locationBox b{display:block;margin-bottom:4px}
+.aboutHero{background:linear-gradient(135deg,#062a52,#0d5ca8);color:#fff;border-radius:15px;padding:22px;margin-bottom:15px}
+.aboutHero .miniLogo{font-size:27px;font-weight:900}
+.aboutHero .miniLogo span{color:#ff9b3d}
+.featureList{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feature{background:#f7f9fc;border:1px solid #e8edf4;border-radius:11px;padding:12px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:#172033;color:#fff;padding:11px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:200}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){.formGrid,.featureList{grid-template-columns:1fr}.moreMenu{right:4%;top:118px}}
+
+
+/* Checkout + Orders */
+.checkoutGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.checkoutSection{background:#fff;border:1px solid #e5e8ee;border-radius:14px;padding:16px;margin-bottom:12px}
+.checkoutSection h3{margin:0 0 12px}
+.payOptions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.payOption{border:1px solid #dfe4ec;border-radius:10px;padding:11px;cursor:pointer;background:#fff;font-weight:700;text-align:center}
+.payOption.selected{border:2px solid var(--orange);background:#fff7ef}
+.orderRow{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #edf0f4}
+.orderRow:last-child{border-bottom:0}
+.orderThumb{width:48px;height:48px;border-radius:8px;object-fit:cover}
+.successBox{text-align:center;padding:12px 4px}
+.successIcon{font-size:52px}
+.orderId{font-weight:900;font-size:19px;margin:8px 0}
+.ordersEmpty{text-align:center;color:var(--muted);padding:30px 5px}
+.statusPill{display:inline-block;padding:5px 8px;border-radius:20px;background:#eaf8ef;color:#159447;font-size:11px;font-weight:800}
+@media(max-width:700px){.checkoutGrid{grid-template-columns:1fr}.payOptions{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">
+    <span class="logoMark">🛍️</span><span class="logoText">APNA <span>MART</span></span>
+    <div class="tag">Har Ghar Ki Zaroorat</div>
+  </div>
+  <div class="search"><input id="search" placeholder="Search products, brands & more"><button onclick="render()">🔍</button></div>
+  <div class="topActions">
+    <button class="iconBtn" title="Notifications" onclick="showToast('Notifications are up to date')">🔔<span class="notifDot"></span></button>
+    <button class="cartBtn" onclick="toggleCart()">🛒 Cart <span id="cartCount">0</span></button>
+  </div>
+</header>
+<div class="moreMenu" id="moreMenu">
+  <button onclick="openAccount();closeMore()">👤 Account</button>
+  <button onclick="openAddress();closeMore()">📍 My Delivery Address</button>
+  <button onclick="openAbout();closeMore()">ℹ️ About APNA MART</button>
+  <button onclick="openOrders();closeMore()">📦 My Orders</button>
+  <button onclick="showToast('Help & support coming soon');closeMore()">💬 Help & Support</button>
+</div>
+<div class="address">
+  <div>📍 <b>DELIVER TO</b> <small id="addressSummary">Add your delivery address</small></div>
+  <button onclick="openAddress()">Add / Change</button>
+</div>
+<nav class="cats" id="cats"></nav>
+<section class="hero"><div><h1>Smart shopping, simple choices.</h1><p>30 products across fashion, mobiles, electronics, beauty, home, grocery, sports and toys.</p><button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button></div><div class="heroBadge">30+</div></section>
+<main class="wrap">
+  <div class="heading"><h2>Popular Products</h2><span class="count" id="count"></span></div>
+  <div class="grid" id="products"></div>
+</main>
+
+<div class="modalBack" id="addressModal">
+  <div class="modal">
+    <div class="modalHead"><h2>📍 Delivery Address</h2><button class="closeX" onclick="closeModal('addressModal')">×</button></div>
+    <div class="locationBox">
+      <b>Use your current location</b>
+      <span id="locationStatus">Allow location access to fill your nearby address automatically.</span>
+      <div style="margin-top:10px"><button class="secondaryBtn" onclick="useLocation()">📍 Detect My Location</button></div>
+    </div>
+    <div class="formGrid">
+      <label>Full Name<input id="addrName" placeholder="Your full name"></label>
+      <label>Mobile Number<input id="addrPhone" placeholder="10-digit mobile number" inputmode="numeric"></label>
+      <label class="full">House / Flat / Building<input id="addrLine1" placeholder="House no., flat, building"></label>
+      <label class="full">Area / Street<input id="addrLine2" placeholder="Area, street, landmark"></label>
+      <label>City<input id="addrCity" placeholder="City"></label>
+      <label>State<input id="addrState" placeholder="State"></label>
+      <label>PIN Code<input id="addrPin" placeholder="PIN code" inputmode="numeric"></label>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:15px;justify-content:flex-end">
+      <button class="secondaryBtn" onclick="closeModal('addressModal')">Cancel</button>
+      <button class="primaryBtn" onclick="saveAddress()">Save Address</button>
+    </div>
+  </div>
+</div>
+
+<div class="modalBack" id="accountModal">
+  <div class="modal">
+    <div class="modalHead"><h2>👤 My Account</h2><button class="closeX" onclick="closeModal('accountModal')">×</button></div>
+    <div class="locationBox"><b>Welcome to APNA MART</b><span id="accountWelcome">Manage your shopping account from here.</span></div>
+    <div class="formGrid">
+      <label class="full">Name<input id="accountName" placeholder="Enter your name"></label>
+      <label class="full">Mobile Number<input id="accountPhone" placeholder="Enter mobile number" inputmode="numeric"></label>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:15px;justify-content:flex-end">
+      <button class="secondaryBtn" onclick="closeModal('accountModal')">Close</button>
+      <button class="primaryBtn" onclick="saveAccount()">Save Account</button>
+    </div>
+  </div>
+</div>
+
+<div class="modalBack" id="aboutModal">
+  <div class="modal">
+    <div class="modalHead"><h2>About APNA MART</h2><button class="closeX" onclick="closeModal('aboutModal')">×</button></div>
+    <div class="aboutHero">
+      <div class="miniLogo">APNA <span>MART</span></div>
+      <div style="margin-top:7px;color:#dce8f5">Har Ghar Ki Zaroorat — smart shopping made simple.</div>
+    </div>
+    <p>APNA MART is an e-commerce shopping experience built to bring everyday products together in one convenient place.</p>
+    <div class="featureList">
+      <div class="feature">🛒 <b>Easy Shopping</b><br><small>Search, browse and add products quickly.</small></div>
+      <div class="feature">💰 <b>Best Prices</b><br><small>Clear pricing and discount display.</small></div>
+      <div class="feature">📍 <b>Easy Delivery</b><br><small>Save your delivery address for checkout.</small></div>
+      <div class="feature">🔒 <b>Secure Experience</b><br><small>Simple account and cart experience.</small></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<div class="modalBack" id="checkoutModal">
+  <div class="modal" style="width:min(900px,96vw)">
+    <div class="modalHead"><h2>🛒 Secure Checkout</h2><button class="closeX" onclick="closeModal('checkoutModal')">×</button></div>
+    <div id="checkoutContent">
+      <div class="checkoutGrid">
+        <div>
+          <div class="checkoutSection">
+            <h3>1. Delivery Address</h3>
+            <div class="locationBox" id="checkoutAddressBox">No delivery address saved.</div>
+            <button class="secondaryBtn" onclick="openAddressFromCheckout()">📍 Add / Change Address</button>
+          </div>
+          <div class="checkoutSection">
+            <h3>2. Payment Method</h3>
+            <div class="payOptions">
+              <button class="payOption selected" id="payCOD" onclick="selectPayment('COD')">💵 Cash on Delivery</button>
+              <button class="payOption" id="payUPI" onclick="selectPayment('UPI')">📱 UPI</button>
+              <button class="payOption" id="payCARD" onclick="selectPayment('CARD')">💳 Card</button>
+            </div>
+            <small id="paymentNote" style="display:block;color:var(--muted);margin-top:10px">COD is available in this checkout flow.</small>
+          </div>
+        </div>
+        <div>
+          <div class="checkoutSection">
+            <h3>Order Summary</h3>
+            <div id="checkoutItems"></div>
+            <div class="orderRow"><b>Subtotal</b><b id="checkoutSubtotal">₹0</b></div>
+            <div class="orderRow"><span>Delivery</span><span id="checkoutDelivery">₹0</span></div>
+            <div class="orderRow" style="font-size:19px"><b>Total</b><b id="checkoutTotal">₹0</b></div>
+            <button class="checkout" style="margin-top:12px" onclick="placeOrder()">Place Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modalBack" id="ordersModal">
+  <div class="modal" style="width:min(700px,96vw)">
+    <div class="modalHead"><h2>📦 My Orders</h2><button class="closeX" onclick="closeModal('ordersModal')">×</button></div>
+    <div id="ordersList"></div>
+  </div>
+</div>
+
+<footer><div><b>APNA MART</b><br>Quality Products • Best Prices</div><div>Fast Delivery • Secure Shopping • Easy Returns</div></footer>
+
+<aside class="drawer" id="drawer"><div class="drawerHead"><h2>Your Cart</h2><button class="close" onclick="toggleCart()">×</button></div><div id="cartItems"></div><div class="total" id="total"></div><button class="checkout" onclick="openCheckout()">Proceed to Checkout</button></aside>
+
+<script>
+const products=[
+["1","Fashion","Georgette Saree with Blouse",1299,2499,"48% OFF","https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=80"],
+["2","Fashion","Men's Casual Cotton Shirt",499,999,"50% OFF","https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=700&q=80"],
+["3","Fashion","Rayon Kurti for Women",599,1099,"46% OFF","https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=700&q=80"],
+["4","Fashion","Girls Party Frock Dress",699,1299,"46% OFF","https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&w=700&q=80"],
+["5","Fashion","Men's Denim Jeans",799,1499,"47% OFF","https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=700&q=80"],
+["6","Fashion","Ladies Handbag",599,1199,"50% OFF","https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80"],
+["7","Shoes","Sports Running Shoes",999,1999,"50% OFF","https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80"],
+["8","Shoes","Casual Sneakers",899,1799,"50% OFF","https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80"],
+["9","Shoes","Formal Office Shoes",1199,2499,"52% OFF","https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=700&q=80"],
+["10","Mobiles","iPhone 14 128GB",59999,69900,"14% OFF","https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=700&q=80"],
+["11","Mobiles","Samsung Galaxy A54",26999,32999,"18% OFF","https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=700&q=80"],
+["12","Mobiles","Redmi Note 13",15999,18999,"16% OFF","https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80"],
+["13","Electronics","Wireless Earbuds",1299,2499,"48% OFF","https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=700&q=80"],
+["14","Electronics","Neckband Bluetooth Earphones",499,999,"50% OFF","https://images.unsplash.com/photo-1577174881658-0f30ed549adc?auto=format&fit=crop&w=700&q=80"],
+["15","Electronics","Smart Watch",1499,3499,"57% OFF","https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80"],
+["16","Electronics","Power Bank 10000mAh",599,1299,"54% OFF","https://images.unsplash.com/photo-1609592424545-2c4a4f0e3b3c?auto=format&fit=crop&w=700&q=80"],
+["17","Beauty","Lipstick Pack of 3",499,999,"50% OFF","https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=80"],
+["18","Beauty","Daily Face Cream",249,499,"50% OFF","https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=700&q=80"],
+["19","Beauty","Hair Oil",349,699,"50% OFF","https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=700&q=80"],
+["20","Beauty","Face Wash",149,299,"50% OFF","https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"],
+["21","Home","Cotton Bedsheet Set",599,1299,"54% OFF","https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=700&q=80"],
+["22","Home","Air Fryer 4.5L",3499,6999,"50% OFF","https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=700&q=80"],
+["23","Home","Mixer Grinder",1999,3999,"50% OFF","https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=700&q=80"],
+["24","Home","Stainless Steel Bottle",399,799,"50% OFF","https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80"],
+["25","Grocery","Aashirvaad Atta 5kg",229,320,"28% OFF","https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=80"],
+["26","Grocery","Fortune Mustard Oil 1L",149,199,"25% OFF","https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80"],
+["27","Grocery","Instant Noodles Pack",199,300,"34% OFF","https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=700&q=80"],
+["28","Sports","SG Cricket Bat",1299,2499,"48% OFF","https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=700&q=80"],
+["29","Sports","Football Size 5",799,1499,"47% OFF","https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=700&q=80"],
+["30","Toys","Remote Control Car",999,1999,"50% OFF","https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=700&q=80"]
+];
+
+let category="All", cart=JSON.parse(localStorage.getItem("apnaCart")||"[]");
+const money=n=>"₹"+n.toLocaleString("en-IN");
+function buildCats(){
+  const cs=["All",...new Set(products.map(p=>p[1]))];
+  document.getElementById("cats").innerHTML=cs.map(c=>`<button class="cat ${c===category?'active':''}" onclick="category='${c}';buildCats();render()">${c}</button>`).join("");
+}
+function render(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const list=products.filter(p=>(category==="All"||p[1]===category)&&(p[2].toLowerCase().includes(q)||p[1].toLowerCase().includes(q)));
+  document.getElementById("count").textContent=`${list.length} products`;
+  document.getElementById("products").innerHTML=list.length?list.map(p=>`<article class="card">
+    <div class="pic"><img src="${p[6]}" alt="${p[2]}" loading="lazy"><span class="badge">${p[5]}</span></div>
+    <div class="info"><div class="catname">${p[1]}</div><div class="name">${p[2]}</div><div class="price">${money(p[3])}<span class="old">${money(p[4])}</span></div><div class="rating">★★★★★ <span style="color:#777">4.5</span></div><button class="add" onclick="add('${p[0]}')">Add to Cart</button></div>
+  </article>`).join(""):`<div class="empty" style="grid-column:1/-1">No products found. Try another search or category.</div>`;
+}
+function add(id){cart.push(id);save();updateCart();toggleCart(true)}
+function save(){localStorage.setItem("apnaCart",JSON.stringify(cart))}
+function updateCart(){
+ document.getElementById("cartCount").textContent=cart.length;
+ const counts={};cart.forEach(id=>counts[id]=(counts[id]||0)+1);
+ const ids=Object.keys(counts);
+ document.getElementById("cartItems").innerHTML=ids.length?ids.map(id=>{const p=products.find(x=>x[0]===id);return `<div class="item"><img src="${p[6]}"><div style="flex:1"><b>${p[2]}</b><div>${money(p[3])}</div><div class="qty"><button onclick="change('${id}',-1)">−</button> ${counts[id]} <button onclick="change('${id}',1)">+</button></div></div></div>`}).join(""):`<div class="empty">Your cart is empty.</div>`;
+ document.getElementById("total").textContent=money(cart.reduce((s,id)=>s+products.find(p=>p[0]===id)[3],0));
+}
+function change(id,d){if(d>0)cart.push(id);else{const i=cart.indexOf(id);if(i>-1)cart.splice(i,1)}save();updateCart()}
+function toggleCart(force){document.getElementById("drawer").classList.toggle("open",force===true?true:force===false?false:undefined);updateCart()}
+
+function closeMore(){document.getElementById("moreMenu").classList.remove("open")}
+function toggleMore(){document.getElementById("moreMenu").classList.toggle("open")}
+function closeModal(id){document.getElementById(id).classList.remove("open")}
+function openModal(id){document.getElementById(id).classList.add("open")}
+function openAddress(){
+  const a=JSON.parse(localStorage.getItem("apnaAddress")||"{}");
+  ["Name","Phone","Line1","Line2","City","State","Pin"].forEach(k=>{
+    const el=document.getElementById("addr"+k); if(el) el.value=a[k]||"";
+  });
+  document.getElementById("locationStatus").textContent="You can enter your address manually or detect your current location.";
+  openModal("addressModal");
+}
+function saveAddress(){
+  const a={};
+  ["Name","Phone","Line1","Line2","City","State","Pin"].forEach(k=>a[k]=document.getElementById("addr"+k).value.trim());
+  if(!a.Name || !a.Phone || !a.Line1 || !a.City || !a.State || !a.Pin){
+    showToast("Please fill the required address details"); return;
+  }
+  localStorage.setItem("apnaAddress",JSON.stringify(a));
+  document.getElementById("addressSummary").textContent=`${a.Line1}, ${a.City} - ${a.Pin}`;
+  closeModal("addressModal"); showToast("Delivery address saved successfully");
+}
+async function useLocation(){
+  const status=document.getElementById("locationStatus");
+  if(!navigator.geolocation){status.textContent="Location is not supported on this device/browser.";return}
+  status.textContent="Detecting your location… Please allow location permission.";
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const {latitude,longitude}=pos.coords;
+    try{
+      const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&addressdetails=1`);
+      const d=await r.json(), a=d.address||{};
+      document.getElementById("addrLine1").value=[a.house_number,a.building].filter(Boolean).join(" ");
+      document.getElementById("addrLine2").value=[a.road,a.neighbourhood,a.suburb].filter(Boolean).join(", ");
+      document.getElementById("addrCity").value=a.city||a.town||a.village||a.municipality||"";
+      document.getElementById("addrState").value=a.state||"";
+      document.getElementById("addrPin").value=a.postcode||"";
+      status.textContent="Location detected. Please check the address and save it.";
+    }catch(e){status.textContent="Location found, but address lookup failed. Please enter the address manually."}
+  },()=>{status.textContent="Location permission was denied. Please enter your address manually."},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+}
+function openAccount(){
+  const a=JSON.parse(localStorage.getItem("apnaAccount")||"{}");
+  document.getElementById("accountName").value=a.name||"";
+  document.getElementById("accountPhone").value=a.phone||"";
+  document.getElementById("accountWelcome").textContent=a.name?`Welcome back, ${a.name}.`:"Manage your shopping account from here.";
+  openModal("accountModal");
+}
+function saveAccount(){
+  const name=document.getElementById("accountName").value.trim(), phone=document.getElementById("accountPhone").value.trim();
+  if(!name || !phone){showToast("Please enter name and mobile number");return}
+  localStorage.setItem("apnaAccount",JSON.stringify({name,phone}));
+  document.getElementById("accountWelcome").textContent=`Welcome back, ${name}.`;
+  closeModal("accountModal"); showToast("Account details saved");
+}
+function openAbout(){openModal("aboutModal")}
+function showToast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(window.__toastTimer); window.__toastTimer=setTimeout(()=>t.classList.remove("show"),2400);
+}
+document.addEventListener("click",e=>{
+  const menu=document.getElementById("moreMenu");
+  if(menu.classList.contains("open") && !menu.contains(e.target) && !e.target.closest(".iconBtn")) closeMore();
+});
+document.querySelector(".logo").style.cursor="pointer";
+document.querySelector(".logo").onclick=toggleMore;
+
+
+let selectedPayment="COD";
+
+function getAddress(){
+  return JSON.parse(localStorage.getItem("apnaAddress")||"{}");
+}
+function getOrders(){
+  return JSON.parse(localStorage.getItem("apnaOrders")||"[]");
+}
+function saveOrders(orders){
+  localStorage.setItem("apnaOrders",JSON.stringify(orders));
+}
+function openCheckout(){
+  document.getElementById("checkoutContent").innerHTML=`<div class="checkoutGrid"><div><div class="checkoutSection"><h3>1. Delivery Address</h3><div class="locationBox" id="checkoutAddressBox"></div><button class="secondaryBtn" onclick="openAddressFromCheckout()">📍 Add / Change Address</button></div><div class="checkoutSection"><h3>2. Payment Method</h3><div class="payOptions"><button class="payOption selected" id="payCOD" onclick="selectPayment('COD')">💵 Cash on Delivery</button><button class="payOption" id="payUPI" onclick="selectPayment('UPI')">📱 UPI</button><button class="payOption" id="payCARD" onclick="selectPayment('CARD')">💳 Card</button></div><small id="paymentNote" style="display:block;color:var(--muted);margin-top:10px">COD is available in this checkout flow.</small></div></div><div><div class="checkoutSection"><h3>Order Summary</h3><div id="checkoutItems"></div><div class="orderRow"><b>Subtotal</b><b id="checkoutSubtotal">₹0</b></div><div class="orderRow"><span>Delivery</span><span id="checkoutDelivery">₹0</span></div><div class="orderRow" style="font-size:19px"><b>Total</b><b id="checkoutTotal">₹0</b></div><button class="checkout" style="margin-top:12px" onclick="placeOrder()">Place Order</button></div></div></div>`;
+  selectedPayment="COD";
+  if(!cart.length){showToast("Your cart is empty");return}
+  renderCheckout();
+  openModal("checkoutModal");
+}
+function renderCheckout(){
+  const a=getAddress();
+  const box=document.getElementById("checkoutAddressBox");
+  if(a.Line1 && a.City){
+    box.innerHTML=`<b>${a.Name||"Customer"} • ${a.Phone||""}</b>${a.Line1}<br>${a.Line2||""}<br>${a.City}, ${a.State||""} - ${a.Pin||""}`;
+  }else{
+    box.innerHTML=`<b>No delivery address saved.</b><br>Please add your complete delivery address before placing the order.`;
+  }
+  const counts={}; cart.forEach(id=>counts[id]=(counts[id]||0)+1);
+  let subtotal=0;
+  document.getElementById("checkoutItems").innerHTML=Object.keys(counts).map(id=>{
+    const p=products.find(x=>x[0]===id); const line=p[3]*counts[id]; subtotal+=line;
+    return `<div class="orderRow"><div style="display:flex;gap:8px;align-items:center"><img class="orderThumb" src="${p[6]}"><span>${p[2]} × ${counts[id]}</span></div><b>${money(line)}</b></div>`;
+  }).join("");
+  const delivery=subtotal>=999?0:49;
+  document.getElementById("checkoutSubtotal").textContent=money(subtotal);
+  document.getElementById("checkoutDelivery").textContent=delivery?money(delivery):"FREE";
+  document.getElementById("checkoutTotal").textContent=money(subtotal+delivery);
+}
+function selectPayment(method){
+  selectedPayment=method;
+  ["COD","UPI","CARD"].forEach(x=>document.getElementById("pay"+x).classList.toggle("selected",x===method));
+  const note=document.getElementById("paymentNote");
+  note.textContent=method==="COD"?"Cash on Delivery selected.":method==="UPI"?"UPI selected. A live payment gateway must be connected before collecting online payment.":"Card selected. A live payment gateway must be connected before collecting card payment.";
+}
+function openAddressFromCheckout(){
+  closeModal("checkoutModal");
+  openAddress();
+  window.__returnToCheckout=true;
+}
+function saveAddress(){
+  const a={};
+  ["Name","Phone","Line1","Line2","City","State","Pin"].forEach(k=>a[k]=document.getElementById("addr"+k).value.trim());
+  if(!a.Name || !a.Phone || !a.Line1 || !a.City || !a.State || !a.Pin){
+    showToast("Please fill the required address details"); return;
+  }
+  localStorage.setItem("apnaAddress",JSON.stringify(a));
+  document.getElementById("addressSummary").textContent=`${a.Line1}, ${a.City} - ${a.Pin}`;
+  closeModal("addressModal"); showToast("Delivery address saved successfully");
+  if(window.__returnToCheckout){window.__returnToCheckout=false;setTimeout(openCheckout,150);}
+}
+function placeOrder(){
+  if(!cart.length){showToast("Your cart is empty");return}
+  const a=getAddress();
+  if(!a.Name || !a.Phone || !a.Line1 || !a.City || !a.State || !a.Pin){
+    showToast("Please add your complete delivery address"); return;
+  }
+  if(selectedPayment!=="COD"){
+    showToast("Online payment gateway is not connected yet. Use COD for now.");
+    return;
+  }
+  const counts={}; cart.forEach(id=>counts[id]=(counts[id]||0)+1);
+  const items=Object.keys(counts).map(id=>{
+    const p=products.find(x=>x[0]===id);
+    return {id:p[0],name:p[2],category:p[1],price:p[3],qty:counts[id],image:p[6]};
+  });
+  const subtotal=items.reduce((s,x)=>s+x.price*x.qty,0);
+  const delivery=subtotal>=999?0:49;
+  const order={
+    id:"APN"+Date.now().toString().slice(-8),
+    date:new Date().toISOString(),
+    items,address:a,payment:"Cash on Delivery",
+    subtotal,delivery,total:subtotal+delivery,status:"Order Placed"
+  };
+  const orders=getOrders(); orders.unshift(order); saveOrders(orders);
+  cart=[];save();updateCart();
+  showOrderSuccess(order);
+}
+function showOrderSuccess(order){
+  document.getElementById("checkoutContent").innerHTML=`
+    <div class="successBox">
+      <div class="successIcon">✅</div>
+      <h2>Order Placed Successfully!</h2>
+      <div class="orderId">Order ID: ${order.id}</div>
+      <span class="statusPill">${order.status}</span>
+      <p style="color:var(--muted)">Payment: ${order.payment}<br>Total: <b>${money(order.total)}</b></p>
+      <button class="primaryBtn" onclick="closeModal('checkoutModal');openOrders()">View My Orders</button>
+    </div>`;
+}
+function openOrders(){
+  renderOrders(); openModal("ordersModal");
+}
+function renderOrders(){
+  const orders=getOrders(), el=document.getElementById("ordersList");
+  if(!orders.length){el.innerHTML='<div class="ordersEmpty">📦<br><br>No orders yet.<br>Your placed orders will appear here.</div>';return}
+  el.innerHTML=orders.map(o=>`
+    <div class="checkoutSection">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
+        <b>${o.id}</b><span class="statusPill">${o.status}</span>
+      </div>
+      <small style="color:var(--muted)">${new Date(o.date).toLocaleString("en-IN")}</small>
+      <div style="margin-top:9px">${o.items.map(x=>`<div class="orderRow"><span>${x.name} × ${x.qty}</span><b>${money(x.price*x.qty)}</b></div>`).join("")}</div>
+      <div class="orderRow"><span>Delivery</span><span>${o.delivery?"₹"+o.delivery:"FREE"}</span></div>
+      <div class="orderRow"><b>Total</b><b>${money(o.total)}</b></div>
+      <small>Deliver to: ${o.address.City}, ${o.address.State} - ${o.address.Pin}</small>
+    </div>`).join("");
+}
+
+document.getElementById("search").addEventListener("input",render);
+buildCats();render();updateCart();
+const savedAddress=JSON.parse(localStorage.getItem("apnaAddress")||"{}");
+if(savedAddress.Line1 && savedAddress.City) document.getElementById("addressSummary").textContent=`${savedAddress.Line1}, ${savedAddress.City} - ${savedAddress.Pin||""}`;
+</script>
+</body>
+</html>
